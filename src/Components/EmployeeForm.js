@@ -15,6 +15,9 @@ class EmployeeForm extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
+        if (this.props.onSubmit) {
+            this.props.onSubmit(this.state);
+        }
         this.setState({
             name: '',
             email: '',
