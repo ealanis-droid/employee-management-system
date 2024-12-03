@@ -19,7 +19,11 @@ const EmployeeForm = ({ onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(formData);
+        if (!formData.name || !formData.email || !formData.phone) {
+            alert("Please fill in all fields.");
+            return; // Exit the function if validation fails
+        }
+        console.log(formData);
         if (onSubmit) {
             onSubmit(formData);
         }
