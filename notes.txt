@@ -1,0 +1,3 @@
+notes
+// Updated overrides per this issue in order to remove vulnerabilities found in npm audit
+  // https://github.com/facebook/create-react-app/issues/13607

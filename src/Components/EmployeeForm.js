@@ -1,65 +1,64 @@
-import '../EmployeeForm.css';
-import React from 'react';
+import '../styles/Employee.css';
+import React, { useState } from 'react';
 
-class EmployeeForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {name: '', email: '', phone: ''};
-    }
+const EmployeeForm = ({ onSubmit }) => {
 
-   handleChange = (e) => {
+    const getInitialFormState = () => ({
+        id: Math.floor(Math.random() * 1000000),
+        name: '',
+        email: '',
+        phone: ''
+    });
+
+    const [formData, setFormData] = useState(getInitialFormState);
+
+    const handleChange = (e) => {
         const { id, value } = e.target;
-        this.setState({ [id]: value });
-    }
+        setFormData(prevData => ({ ...prevData, [id]: value }));
+    };
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
-        if (this.props.onSubmit) {
-            this.props.onSubmit(this.state);
+        // console.log(formData);
+        if (onSubmit) {
+            onSubmit(formData);
         }
-        this.setState({
-            name: '',
-            email: '',
-            phone: ''
-        });
-    }
+        setFormData(getInitialFormState());
+    };
 
-    render() {
-        return (
-            <form className="employee-form" onSubmit={this.handleSubmit}>   
-                <h2>Add Employee</h2>
-                <div>
-                    Name: <input
-                        type="text"
-                        id="name"
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                        placeholder="Name"
-                    />
-                </div>
-                <div>
-                    Email: <input
-                        type="email" 
-                        id="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        placeholder="Email"
-                    />
-                </div>
-                <div>
-                    Phone: <input
-                        type="tel"
-                        id="phone"
-                        value={this.state.phone}
-                        onChange={this.handleChange}
-                        placeholder="Phone"
-                    />
-                </div>
-                <button type="submit">Add</button>
-            </form>
-        );
-    }
-}
+    return (
+        <form className="employee-form" onSubmit={handleSubmit}>   
+            <h2>Add Employee</h2>
+            <div>
+                Name: <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Name"
+                />
+            </div>
+            <div>
+                Email: <input
+                    type="email" 
+                    id="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email"
+                />
+            </div>
+            <div>
+                Phone: <input
+                    type="tel"
+                    id="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Phone"
+                />
+            </div>
+            <button type="submit">Add</button>
+        </form>
+    );
+};
 
 export default EmployeeForm;
