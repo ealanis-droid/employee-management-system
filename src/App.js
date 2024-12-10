@@ -2,6 +2,7 @@ import './App.css';
 import EmployeeForm from './Components/EmployeeForm';
 import EmployeeList from './Components/EmployeeList';
 import EmployeeDetail from './Components/EmployeeDetail';
+import EmployeeEdit from './Components/EmployeeEdit';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -25,20 +26,26 @@ function App() {
     setEmployees(employees.filter(emp => emp.id !== id));
   };
 
+  const editEmployee = (updatedEmployee) => {
+    setEmployees(employees.map(emp => emp.id === updatedEmployee.id ? updatedEmployee : emp));
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
           <Route path="/" element={
             <>
-              <EmployeeForm onSubmit={addEmployee} />
+              <EmployeeForm onSubmit={addEmployee}/>
               <EmployeeList 
                 employees={employees} 
                 onDelete={deleteEmployee}
+                onEdit={editEmployee}
               />
             </>
           } />
-          <Route path="/employees/:id" element={<EmployeeDetail employees={employees} />} />
+          <Route path="/employee/:id" element={<EmployeeDetail employees={employees} />} />
+          <Route path="/employee/:id/edit" element={<EmployeeEdit employees={employees} onEdit={editEmployee} />} />
         </Routes>
       </div>
     </BrowserRouter>

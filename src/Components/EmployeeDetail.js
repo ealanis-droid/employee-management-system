@@ -32,6 +32,14 @@ const EmployeeDetail = ({ employees }) => {
                         <th><label htmlFor="phone">Phone: </label></th>
                         <td id="phone">{employee.phone}</td>
                     </tr>
+                    <tr>
+                        <th><label htmlFor="department">Department: </label></th>
+                        <td id="department">{employee.department}</td>
+                    </tr>
+                    <tr>
+                        <th><label htmlFor="hireDate">Hire Date: </label></th>
+                        <td id="hireDate">{employee.hireDate}</td>
+                    </tr>
                 </tbody>
             </table>
             <Link to="/" className="back-link">Back to Home</Link>
